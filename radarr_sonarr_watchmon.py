@@ -67,7 +67,7 @@ class watchedMonitor(object):
             self.authenticate()
 
         if not self.authorization:
-            print('ERROR: Authentication required')
+            print_error('ERROR: Authentication required')
             exit(1)
 
         # Simulate expired token
@@ -93,7 +93,7 @@ class watchedMonitor(object):
                     except KeyError:
                         pass
             except:
-                print("ERROR: Could not get data from Trakt. Maybe authentication is out of date? Try to delete .auth.pkl file and run script again.")
+                print_error("ERROR: Could not get data from Trakt. Maybe authentication is out of date? Try to delete .auth.pkl file and run script again.")
                 sys.exit()
 
         return movies_watched_recently_imdbids
@@ -127,7 +127,7 @@ class watchedMonitor(object):
                     request_uri ='http://'+radarr_address+'/api/v3/movie?apikey='+radarr_apikey
                     r = requests.put(request_uri, json=movie_json)
                     if r.status_code != 202:
-                        print("   Error: "+str(r.json()["message"]))
+                        print_error("   Error: "+str(r.json()["message"]))
 
 
     def trakt_get_episodes(self, recent_days):
@@ -218,7 +218,7 @@ class watchedMonitor(object):
                                 sonarr_episode_json["monitored"] = False
                                 r = requests.put(request_uri, json=sonarr_episode_json)
                                 if r.status_code != 202:
-                                   print("   Error: "+str(r.json()["message"]))
+                                   print_error("   Error: "+str(r.json()["message"]))
 
     def medusa(self, recent_days, medusa_address, medusa_username, medusa_password):
 
@@ -283,7 +283,7 @@ class watchedMonitor(object):
                                 if str(medusa_patch) == "{'status': 6}":
                                     print("  "+show["title"]+" - S"+str(medusa_season).zfill(2)+'E'+ str(medusa_ep).zfill(2))
                                 else:
-                                    print("  Error updating "+show["title"]+" - S"+str(medusa_season).zfill(2)+'E'+ str(medusa_ep).zfill(2))
+                                    print_error("  Error updating "+show["title"]+" - S"+str(medusa_season).zfill(2)+'E'+ str(medusa_ep).zfill(2))
 
 
     def on_aborted(self):
@@ -350,6 +350,10 @@ class watchedMonitor(object):
         self.authorization = authorization
 
         print('Token refreshed - authorization: %r' % self.authorization)
+
+    def print_error(message)
+        print(message, file=sys.stderr)
+	
 
 
 import yaml
