@@ -351,7 +351,7 @@ class watchedMonitor(object):
 
         print('Token refreshed - authorization: %r' % self.authorization)
 
-    def print_error(message)
+    def print_error(message):
         print(message, file=sys.stderr)
 	
 
