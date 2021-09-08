@@ -13,6 +13,8 @@ from pprint import pprint
 
 # logging.basicConfig(level=logging.DEBUG)
 
+def print_error(message):
+    print(message, file=sys.stderr)
 
 class watchedMonitor(object):
     def __init__(self):
@@ -351,9 +353,6 @@ class watchedMonitor(object):
 
         print('Token refreshed - authorization: %r' % self.authorization)
 
-    def print_error(message):
-        print(message, file=sys.stderr)
-	
 
 
 import yaml
