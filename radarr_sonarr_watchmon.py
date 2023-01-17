@@ -381,7 +381,7 @@ class watchedMonitor(object):
 
         # Get all series from sonarr
         response = requests.get(
-            "http://" + self.sonarr_address + "/api/series?apikey=" + self.sonarr_apikey
+            "http://" + self.sonarr_address + "/api/v3/series?apikey=" + self.sonarr_apikey
         )
 
         if response.status_code == 401:
@@ -411,7 +411,7 @@ class watchedMonitor(object):
                         request_uri = (
                             "http://"
                             + self.sonarr_address
-                            + "/api/series/"
+                            + "/api/v3/series/"
                             + str(sonarr_id)
                             + "?apikey="
                             + self.sonarr_apikey
@@ -434,7 +434,7 @@ class watchedMonitor(object):
                     response_eps = requests.get(
                         "http://"
                         + self.sonarr_address
-                        + "/api/episode/?seriesID="
+                        + "/api/v3/episode/?seriesID="
                         + str(sonarr_id)
                         + "&apikey="
                         + self.sonarr_apikey
@@ -468,7 +468,7 @@ class watchedMonitor(object):
                                 request_uri = (
                                     "http://"
                                     + self.sonarr_address
-                                    + "/api/episode/"
+                                    + "/api/v3/episode/"
                                     + str(sonarr_epid)
                                     + "?apikey="
                                     + self.sonarr_apikey
